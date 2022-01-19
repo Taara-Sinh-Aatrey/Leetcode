@@ -1,3 +1,5 @@
+// Directed by Tanay Chaturvedi
+
 class Solution {
 public:
     int deleteAndEarn(vector<int>& nums) {
@@ -9,6 +11,7 @@ public:
         }
         
 /*
+        APPROACH 1
         // dp[i] represents the money earned when i is the biggest element taken
         vector<int> dp(N), mx(N);
         
@@ -26,11 +29,11 @@ public:
         return mx[N - 1];
 */
         
-        // dp[i] represents the money earned when i is the biggest element taken
+        // APPROACH 2
+        // dp[i] represents the money earned when we ha is the biggest element taken
         vector<int> dp(N);
         
         for (int number = 1; number < N; number++) {
-            
             dp[number] = max(dp[number - 1], freq[number] * number + (number >= 2 ? dp[number - 2] : 0));
         }
         

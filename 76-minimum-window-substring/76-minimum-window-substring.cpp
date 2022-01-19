@@ -1,7 +1,8 @@
 class Solution {
 public:
     string minWindow(string s, string t) {
-        unordered_map<char, int> cnt, cur;
+        // cnt is the count of every characters in `t`
+        unordered_map<char, int> cnt;
         for (char &x : t) {
             cnt[x]++;
         }
@@ -17,6 +18,9 @@ public:
         
         // `j` is the starting index of the current window
         int j = 0;
+        
+        // `cur` stores the frquency of every character in the current window
+        unordered_map<char, int> cur;
         
         for (int i = 0; i < n; i++) {
             // including `i`th character in the current window

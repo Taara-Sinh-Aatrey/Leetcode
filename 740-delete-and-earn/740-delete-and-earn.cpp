@@ -8,6 +8,7 @@ public:
             freq[x]++;
         }
         
+/*
         // dp[i] represents the money earned when i is the biggest element taken
         vector<int> dp(N), mx(N);
         
@@ -23,5 +24,16 @@ public:
         }
         
         return mx[N - 1];
+*/
+        
+        // dp[i] represents the money earned when i is the biggest element taken
+        vector<int> dp(N);
+        
+        for (int number = 1; number < N; number++) {
+            
+            dp[number] = max(dp[number - 1], freq[number] * number + (number >= 2 ? dp[number - 2] : 0));
+        }
+        
+        return dp[N - 1];
     }
 };

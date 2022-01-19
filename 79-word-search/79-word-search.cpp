@@ -9,7 +9,7 @@ public:
                     continue;
                 }
                 
-                vector<vector<bool>> act(n, vector<bool>(m));
+                // vector<vector<bool>> act(n, vector<bool>(m));
                 const int dr[] = {-1, 0, 1, 0};
                 const int dc[] = {0, -1, 0, 1};
                 
@@ -20,19 +20,22 @@ public:
                     if (idx + 1 == word.size())
                         return true;
                     
-                    act[r][c] = true;
+                    char t = board[r][c];
+                    board[r][c] = '?';
+                    // act[r][c] = true;
                     
                     for (int dir = 0; dir < 4; dir++) {
                         int nr = r + dr[dir];
                         int nc = c + dc[dir];
-                        if (0 <= nr && nr < n && 0 <= nc && nc < m && !act[nr][nc]) {
+                        if (0 <= nr && nr < n && 0 <= nc && nc < m && board[nr][nc] != '?') {
                             if (dfs(nr, nc, idx + 1)) {
                                 return true;
                             }
                         }
                     }
                     
-                    act[r][c] = false;
+                    // act[r][c] = false;
+                    board[r][c] = t;
                     return false;
                 };
                 

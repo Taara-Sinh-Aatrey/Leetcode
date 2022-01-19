@@ -12,9 +12,6 @@ public:
                 vector<vector<bool>> act(n, vector<bool>(m));
                 const int dr[] = {-1, 0, 1, 0};
                 const int dc[] = {0, -1, 0, 1};
-                auto e = [&] (int r, int c) {
-                    return 0 <= r && r < n && 0 <= c && c < m && !act[r][c];
-                };
                 
                 function<bool(int, int, int)> dfs = [&] (int r, int c, int idx) -> bool {
                     if (board[r][c] != word[idx])
@@ -28,7 +25,7 @@ public:
                     for (int dir = 0; dir < 4; dir++) {
                         int nr = r + dr[dir];
                         int nc = c + dc[dir];
-                        if (e(nr, nc)) {
+                        if (0 <= nr && nr < n && 0 <= nc && nc < m && !act[nr][nc]) {
                             if (dfs(nr, nc, idx + 1)) {
                                 return true;
                             }

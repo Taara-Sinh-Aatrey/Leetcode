@@ -21,13 +21,15 @@ public:
         if (start > end)
             return NULL;
         
-        int j = start2;
-        while (inorder[j] != preorder[start])
-            j++;
+        int len = 0;
+        while (inorder[start2 + len] != preorder[start])
+            len++;
         
         TreeNode *root = new TreeNode(preorder[start]);
-        root->left = buildTree(preorder, inorder, start + 1, start + j - start2, start2, j - 1);
-        root->right = buildTree(preorder, inorder, start + j - start2 + 1, end, j + 1, end2);
+        
+        root->left = buildTree(preorder, inorder, start + 1, start + len, start2, start2 + len - 1);
+        
+        root->right = buildTree(preorder, inorder, start + len + 1, end, start2 + len + 1, end2);
         
         return root;
     }

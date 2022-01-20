@@ -1,45 +1,50 @@
 class Solution {
 public:
     
-    bool solve(vector<vector<char>>& board, vector<vector<bool>> &row, vector<vector<bool>> &col, vector<vector<vector<bool>>> &box, int i, int j) {
-        if (i == 9 && j == 0) {
+    bool solve(vector<vector<char>>& board, vector<vector<bool>> &row, vector<vector<bool>> &col, vector<vector<vector<bool>>> &box, int cellNumber) {
+        if (cellNumber >= 81)
             return true;
-        }
-        int ni = i, nj = j + 1;
-        if (j == 9) {
-            ni++;
-            nj = 0;
-        }
-        if (board[i][j] != '.') {
-            return solve(board, row, col, box, ni, nj);
-        }
+        
+        int r = cellNumber / 9, c = cellNumber % 9;
+        
+        if (board[r][c] != '.')
+            return solve(board, row, col, box, cellNumber + 1);
+        
         for (int x = 1; x < 10; x++) {
-            if (row[i][x] || col[j][x] || box[i / 3][j / 3][x]) {
+            
+            if (row[r][x] || col[c][x] || box[r / 3][c / 3][x])
                 continue;
-            }
-            row[i][x] = col[j][x] = box[i / 3][j / 3][x] = true;
-            board[i][j] = '0' + x;
-            if (solve(board, row, col, box, ni, nj)) {
+            
+            row[r][x] = col[c][x] = box[r / 3][c / 3][x] = true;
+            board[r][c] = '0' + x;
+            
+            if (solve(board, row, col, box, cellNumber + 1))
                 return true;
-            }
-            board[i][j] = '.';
-            row[i][x] = col[j][x] = box[i / 3][j / 3][x] = false;
+            
+            board[r][c] = '.';
+            row[r][x] = col[c][x] = box[r / 3][c / 3][x] = false;
         }
+        
         return false;
     }
     
     void solveSudoku(vector<vector<char>>& board) {
+        
         vector<vector<bool>> row(9, vector<bool>(10));
         vector<vector<bool>> col(9, vector<bool>(10));
         vector<vector<vector<bool>>> box(3, vector<vector<bool>>(3, vector<bool>(10)));
-        for (int i = 0; i < 9; i++) {
-            for (int j = 0; j < 9; j++) {
-                if (board[i][j] == '.')
+        
+        for (int r = 0; r < 9; r++) {
+            for (int c = 0; c < 9; c++) {
+                
+                if (board[r][c] == '.')
                     continue;
-                int x = board[i][j] - '0';
-                row[i][x] = col[j][x] = box[i / 3][j / 3][x] = true;
+                
+                int x = board[r][c] - '0';
+                row[r][x] = col[c][x] = box[r / 3][c / 3][x] = true;
             }
         }
-        solve(board, row, col, box, 0, 0);
+        
+        solve(board, row, col, box, 0);
     }
 };

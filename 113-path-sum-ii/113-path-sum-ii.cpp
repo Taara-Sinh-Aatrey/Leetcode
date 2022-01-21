@@ -22,7 +22,7 @@ public:
         targetSum -= root->val;
         curSol.emplace_back(root->val);
         
-        if (root->left == NULL && root->right == NULL && targetSum == 0 && !curSol.empty())
+        if (root->left == NULL && root->right == NULL && targetSum == 0)
             ans.emplace_back(curSol);
         
         path_sum(root->left, targetSum);

@@ -12,17 +12,27 @@
 class Solution {
 public:
     
+    unordered_map<TreeNode*, int> h;
+    
     int maxDepth(TreeNode* root) {
         if (!root)
             return 0;
-        return 1 + max(maxDepth(root->left), maxDepth(root->right));
+        return h[root] = 1 + max(maxDepth(root->left), maxDepth(root->right));
     }
     
-    bool isBalanced(TreeNode* root) {
+    bool balanced(TreeNode* root) {
         if (root == NULL)
             return true;
         
-        return abs(maxDepth(root->left) - maxDepth(root->right)) <= 1 && isBalanced(root->left) && isBalanced(root->right);
+        return abs(h[root->left] - h[root->right]) <= 1 && balanced(root->left) && balanced(root->right);
+        
+    }
+    
+    bool isBalanced(TreeNode* root) {
+        
+        maxDepth(root);
+        
+        return balanced(root);
         
     }
 };

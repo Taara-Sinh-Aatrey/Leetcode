@@ -18,8 +18,11 @@ public:
             
             for (int i = 0; i < s.size(); i++) {
                 char ch = s[i];
+                
                 for (char ch = 'a'; ch <= 'z'; ch++) {
+                    
                     s[i] = ch;
+                    
                     if (!binary_search(wordList.begin(), wordList.end(), s))
                         continue;
                     
@@ -34,7 +37,9 @@ public:
                         ans[s].emplace_back(v);
                         v.pop_back();
                     }
+                    
                 }
+                
                 s[i] = ch;
             }
             

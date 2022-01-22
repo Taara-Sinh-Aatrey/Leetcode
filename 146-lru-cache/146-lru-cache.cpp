@@ -19,6 +19,7 @@ public:
     }
     
     int get(int key) {
+        
         // key not found
         if (!iter.count(key))
             return -1;
@@ -26,6 +27,7 @@ public:
         updateRecency(key);
         // after recency update, the key must be at the beginning of the list
         return vals.begin()->second;
+        
     }
     
     void put(int key, int value) {

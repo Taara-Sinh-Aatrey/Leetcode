@@ -14,8 +14,8 @@ public:
         if (!head || !head->next)
             return head;
         
-        ListNode *mid = head, *fast = head;
-        while (fast->next && fast->next->next) {
+        ListNode *mid = head, *fast = head->next;
+        while (fast && fast->next) {
             mid = mid->next;
             fast = fast->next->next;
         }

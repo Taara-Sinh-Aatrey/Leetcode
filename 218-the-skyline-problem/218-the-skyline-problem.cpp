@@ -8,7 +8,6 @@ public:
             endPoints.emplace(pr[0]);
             endPoints.emplace(pr[1]);
             mp[pr[0]].emplace_back(pr[1], pr[2]);
-            cout << pr[2] << endl;
         }
         
         set<pair<int, int>> st;

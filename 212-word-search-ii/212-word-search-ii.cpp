@@ -76,13 +76,8 @@ public:
                 string s;
                 
                 function<void(int, int, Trie::node*)> dfs = [&] (int r, int c, Trie::node* cur) -> void {                    
-                    // assert(cur);
                     
                     char t = board[r][c];
-                    // cur = cur->child[t - 'a'];
-                    
-                    // if (!cur)
-                        // return;
                     
                     s += t;
                     board[r][c] = '?';

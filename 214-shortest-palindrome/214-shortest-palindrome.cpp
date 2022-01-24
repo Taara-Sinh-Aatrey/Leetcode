@@ -20,8 +20,6 @@ public:
             lps[i] = len;
         }
         
-        cout << lps.back() << endl;
-        
         return rev.substr(0, n - lps.back()) + s.substr(0, n);
     }
 };

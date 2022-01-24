@@ -1,7 +1,7 @@
 class Solution {
 public:
     bool containsDuplicate(vector<int>& nums) {
-        unordered_map<int, bool> vis;
+        map<int, bool> vis;
         
         for (auto &x : nums) {
             if (vis[x])

@@ -1,21 +1,23 @@
 class Solution {
 public:
     int nthUglyNumber(int n) {
-        set<uint64_t> st;
-        st.emplace(1);
+        vector<int> nums(n, 1);
         
-        while (n > 0) {
-            n--;
-            uint64_t x = *st.begin();
-            st.erase(st.begin());
+        int i2 = 0, i3 = 0, i5 = 0;
+        
+        for (int i = 1; i < n;) {
+            nums[i] = min({nums[i2] * 2, nums[i3] * 3, nums[i5] * 5});
             
-            if (n == 0)
-                return x;
+            if (nums[i2] * 2 == nums[i])
+                i2++;
+            else if (nums[i3] * 3 == nums[i])
+                i3++;
+            else
+                i5++;
             
-            for (auto &p : {2, 3, 5})
-                st.emplace(x * p);
+            i += nums[i] != nums[i - 1];
         }
         
-        assert(false);
+        return nums[n - 1]; 
     }
 };

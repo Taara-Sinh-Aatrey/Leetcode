@@ -5,7 +5,6 @@ public:
         stack<int> st;
         
         for (int i = 0; i < n; ) {
-            // cout << "i = " << i << endl;
             
             // ignore spaces
             while (i < n && s[i] == ' ') i++;
@@ -22,13 +21,11 @@ public:
             int j = i, num = 0;
             while (j < n && '0' <= s[j] && s[j] <= '9')
                 num = num * 10 + (s[j++] - '0');
-            // cout << "j = " << j << endl;
+
             i = j;
             
             if (op == '-')
                 num *= -1;
-            
-            // cout << op << " " << num << endl;
             
             if (op == '*') {
                 num *= st.top();

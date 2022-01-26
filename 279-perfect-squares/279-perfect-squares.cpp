@@ -3,9 +3,7 @@ public:
     int numSquares(int n) {
         const int inf = 1e9;
         vector<int> ans(n + 1, inf);
-        
-        for (int i = 0; i * i <= n; i++)
-            ans[i * i] = 1;
+        ans[0] = 0;
         
         for (int i = 0; i < n; i++)
             for (int j = 1; i + j * j <= n; j++)

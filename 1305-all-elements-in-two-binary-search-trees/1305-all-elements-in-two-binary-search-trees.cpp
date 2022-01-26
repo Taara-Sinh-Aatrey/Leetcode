@@ -14,35 +14,35 @@ public:
     
     vector<int> getAllElements(TreeNode* root1, TreeNode* root2) { 
         
-        auto push = [&] (stack<TreeNode*> &st, TreeNode* root) {
+        auto Push = [&] (stack<TreeNode*> &st, TreeNode* root) {
             while (root) {
                 st.emplace(root);
                 root = root->left;
             }
         };
         
-        auto pop = [&] (stack<TreeNode*> &st) {
+        auto Pop = [&] (stack<TreeNode*> &st) {
             TreeNode *root = st.top();
             st.pop();
-            push(st, root->right);
+            Push(st, root->right);
             return root->val;
         };
         
-        auto top = [&] (stack<TreeNode*> &st) {
+        auto Top = [&] (stack<TreeNode*> &st) {
             return st.top()->val;
         };
         
         stack<TreeNode*> A, B;
-        push(A, root1);
-        push(B, root2);
+        Push(A, root1);
+        Push(B, root2);
         
         vector<int> ans;
         while (!A.empty() || !B.empty()) {
-            if (B.empty() || (!A.empty() && top(A) < top(B))) {
-                ans.emplace_back(pop(A));
+            if (B.empty() || (!A.empty() && Top(A) < Top(B))) {
+                ans.emplace_back(Pop(A));
             }
             else {
-                ans.emplace_back(pop(B));
+                ans.emplace_back(Pop(B));
             }
         }
         

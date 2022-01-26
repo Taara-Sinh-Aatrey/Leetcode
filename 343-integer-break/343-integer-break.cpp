@@ -1,13 +1,15 @@
 class Solution {
 public:
     int integerBreak(int n) {
+        if (n <= 3)
+            return n-1;
         
-        int m = max(2, (n + 1) / 3);
-
         int prod = 1;
-        for (int i = 0; i < m; i++)
-            prod *= n / m + (i < (n % m) ? 1 : 0);
+        while (n > 4) {
+            n -= 3;
+            prod *= 3;
+        }
         
-        return prod;
+        return prod * n;
     }
 };

@@ -14,7 +14,6 @@ public:
             small.erase(prev(small.end()));
         }
         else {
-            assert(small.size() < large.size());
             large.emplace(num);
             small.emplace(*large.begin());
             large.erase(large.begin());

@@ -2,9 +2,7 @@ class MedianFinder {
 public:
     multiset<int> small, large;
     
-    MedianFinder() {
-        
-    }
+    MedianFinder() {}
     
     void addNum(int num) {
         
@@ -18,6 +16,7 @@ public:
             small.emplace(*large.begin());
             large.erase(large.begin());
         }
+        
     }
     
     double findMedian() {

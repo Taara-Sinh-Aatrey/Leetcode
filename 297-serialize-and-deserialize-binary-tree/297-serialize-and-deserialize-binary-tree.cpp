@@ -50,12 +50,10 @@ public:
                 cur += data[j++];
             if (cur != "null") {
                 TreeNode *node = new TreeNode(stoi(cur));
-                if (idx != -1) {
+                if (idx != -1)
                     nodes[idx]->left = node;
-                }
-                else {
+                else
                     head = node;
-                }
                 nodes.emplace_back(node);
             }
             i = j + 1;

@@ -2,9 +2,6 @@ class Solution {
 public:
     bool isMatch(string s, string p) {
         int m = s.size(), n = p.size();
-        reverse(s.begin(), s.end());
-        reverse(p.begin(), p.end());
-        
         vector<vector<bool>> dp(n + 1, vector<bool>(m + 1));
         dp[0][0] = true;
         
@@ -14,31 +11,34 @@ public:
                 continue;
             
             for (int j = 0; j <= m; j++) {  
-                // X*a == X
-                if (i - 2 >= 0 && p[i - 2] == '*') {
-                    dp[i][j] = dp[i - 2][j];
-                }
+                // Xa* == X
+                int pv = i - 1;
+                if (pv > 0 && p[pv - 1] == '*')
+                    pv--;
                 
+                if (i + 1 <= n && p[i] == '*') {
+                    dp[i][j] = dp[pv][j];
+                }
                 if (j == 0)
                     continue;
                 
-                // X*a = Ya
-                if ((p[i - 1] == s[j - 1] || p[i - 1] == '.') && i - 2 >= 0 && p[i - 2] == '*') {
+                // Xa* = Ya
+                if ((p[i - 1] == s[j - 1] || p[i - 1] == '.') && i + 1 <= n && p[i] == '*') {
                     // X == Y
-                    dp[i][j] = dp[i][j] | dp[i - 2][j - 1];
+                    dp[i][j] = dp[i][j] | dp[pv][j - 1];
                     
-                    // or X*a == Y
+                    // or Xa* == Y
                     dp[i][j] = dp[i][j] | (dp[i][j - 1]);
                     
                 }
                 // Xa == Ya
                 else if (p[i - 1] == s[j - 1] || p[i - 1] == '.') {
                     // X == Y
-                    dp[i][j] = dp[i][j] | dp[i - 1][j - 1];
+                    dp[i][j] = dp[i][j] | dp[pv][j - 1];
                 }
             }
         }
         
-        return dp[n][m];
+        return dp[n - (p[n - 1] == '*')][m];
     }
 };

@@ -5,9 +5,9 @@ public:
         int n = a.size() / 3;
         int N = n * 3;
         vector<int> pref(N), suff(N);
-        multiset<int> cur;
+        multiset<int32_t> cur;
         int sum = 0;
-        for (int i = 0; i < N; i++) {
+        for (int i = 0; i < 2 * n; i++) {
             cur.insert(a[i]);
             sum += a[i];
             if (cur.size() > n) {
@@ -19,7 +19,7 @@ public:
         
         cur.clear();
         sum = 0;
-        for (int i = N - 1; i >= 0; i--) {
+        for (int i = N - 1; i >= n; i--) {
             cur.insert(a[i]);
             sum += a[i];
             if (cur.size() > n) {

@@ -4,7 +4,7 @@ public:
         #define int int64_t
         int n = a.size() / 3;
         int N = n * 3;
-        vector<int> pref(n + 1), suff(n + 1);
+        vector<int> pref(N), suff(N);
         multiset<int32_t> cur;
         int sum = 0;
         for (int i = 0; i < 2 * n; i++) {
@@ -14,8 +14,7 @@ public:
                 sum -= *cur.rbegin();
                 cur.erase(prev(cur.end()));
             }
-            if (i >= n - 1)
-                pref[i - (n  - 1)] = sum;
+            pref[i] = sum;
         }
         
         cur.clear();
@@ -27,12 +26,11 @@ public:
                 sum -= *cur.begin();
                 cur.erase(cur.begin());
             }
-            if (i <= N - n)
-                suff[i - n] = sum;
+            suff[i] = sum;
         }
         int ans = LLONG_MAX;
         for (int i = n - 1; i < 2 * n; i++) {
-            ans = min(ans, pref[i - (n  - 1)] - suff[i + 1 - n]);
+            ans = min(ans, pref[i] - suff[i + 1]);
         }
         #undef int
         return ans;

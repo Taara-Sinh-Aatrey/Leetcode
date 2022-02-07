@@ -5,28 +5,32 @@ public:
         int n = a.size() / 3;
         int N = n * 3;
         vector<int> pref(N), suff(N);
-        multiset<int32_t> cur;
-        int sum = 0;
-        for (int i = 0; i < 2 * n; i++) {
-            cur.insert(a[i]);
-            sum += a[i];
-            if (cur.size() > n) {
-                sum -= *cur.rbegin();
-                cur.erase(prev(cur.end()));
+        {
+            priority_queue<int32_t> pq;
+            int sum = 0;
+            for (int i = 0; i < 2 * n; i++) {
+                pq.emplace(a[i]);
+                sum += a[i];
+                if (pq.size() > n) {
+                    sum -= pq.top();
+                    pq.pop();
+                }
+                pref[i] = sum;
             }
-            pref[i] = sum;
         }
         
-        cur.clear();
-        sum = 0;
-        for (int i = N - 1; i >= n; i--) {
-            cur.insert(a[i]);
-            sum += a[i];
-            if (cur.size() > n) {
-                sum -= *cur.begin();
-                cur.erase(cur.begin());
+        {
+            priority_queue<int32_t, vector<int32_t>, greater<int32_t>> pq;
+            int sum = 0;
+            for (int i = N - 1; i >= n; i--) {
+                pq.emplace(a[i]);
+                sum += a[i];
+                if (pq.size() > n) {
+                    sum -= pq.top();
+                    pq.pop();
+                }
+                suff[i] = sum;
             }
-            suff[i] = sum;
         }
         int ans = LLONG_MAX;
         for (int i = n - 1; i < 2 * n; i++) {

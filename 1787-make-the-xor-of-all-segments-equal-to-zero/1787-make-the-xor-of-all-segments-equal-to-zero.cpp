@@ -1,9 +1,9 @@
 class Solution {
 public:
     int minChanges(vector<int>& nums, int k) {
-        int n = nums.size();
         const int MAX = 1 << 10;
         const int inf = 1e9;
+        int n = nums.size();
         vector<int> dp(MAX, inf);
         dp[0] = 0;
         
